@@ -1,0 +1,7 @@
+Strings for "randomized" output:
+  new member in muc:
+    
+  nick of bot mentioned:
+    I heard that, name!
+    What did you say, name? I didn't pay attention.
+    I'm here, name!
