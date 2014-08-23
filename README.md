@@ -9,4 +9,5 @@ Todo
 ----
 
 - add some commands to the bot
+- documentation of features
 - (improve my English) ;)
