@@ -12,3 +12,6 @@ Strings for "randomized" output:
     Are you talking to me, name?
     I am listening, name.
     Don't speak about me like I'm not here, name!
+
+  commands for bot:
+    !echo <text> - echo the message
