@@ -47,7 +47,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
 		# to a single room, use the events muc::room@server::presence,
 		# muc::room@server::got_online, or muc::room@server::got_offline.
 		self.add_event_handler("muc::%s::got_online" % self.room,
-		self.muc_online)
+			self.muc_online)
 	def start(self, event):
 		"""
 		Process the session_start event.
@@ -88,22 +88,23 @@ class MUCBot(sleekxmpp.ClientXMPP):
 			self.send_message(mto=msg['from'].bare,
 				mbody="I heard that, %s." % msg['mucnick'],
 				mtype='groupchat')
-		def muc_online(self, presence):
-			"""
-			Process a presence stanza from a chat room. In this case,
-			presences from users that have just come online are
-			handled by sending a welcome message that includes
-			the user's nickname and role in the room.
-			Arguments:
-			presence -- The received presence stanza. See the
-			documentation for the Presence stanza
-			to see how else it may be used.
-			"""
-			if presence['muc']['nick'] != self.nick:
-				self.send_message(mto=presence['from'].bare,
-					mbody="Hello, %s %s" % (presence['muc']['role'],
-					presence['muc']['nick']),
-					mtype='groupchat')
+	def muc_online(self, presence):
+		"""
+		Process a presence stanza from a chat room. In this case,
+		presences from users that have just come online are
+		handled by sending a welcome message that includes
+		the user's nickname and role in the room.
+		Arguments:
+		presence -- The received presence stanza. See the
+		documentation for the Presence stanza
+		to see how else it may be used.
+		"""
+		if presence['muc']['nick'] != self.nick:
+			self.send_message(mto=presence['from'].bare,
+				mbody="Hello, %s %s" % (presence['muc']['role'],
+				presence['muc']['nick']),
+				mtype='groupchat')
+
 if __name__ == '__main__':
 	# Setup the command line arguments.
 	optp = OptionParser()
