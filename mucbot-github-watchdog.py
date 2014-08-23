@@ -96,8 +96,12 @@ class MUCBot(sleekxmpp.ClientXMPP):
 					mtype='groupchat')
 			else	:
 				# Lookup github issue
+				f = open('../github-token-mucbot.txt','r')
+				token = f.read()
+				f.close()
 				try:
-					page = urllib2.urlopen('https://api.github.com/repos/GlasFrost/SleekXMPP-mucbot/issues/'+unicode(issue_id))
+					req = urllib2.Request('https://api.github.com/repos/GlasFrost/SleekXMPP-mucbot/issues/'+unicode(issue_id), headers={'Authorization':'token '+token})
+					page = urllib2.urlopen(req)
 				except Exception as e:
 					self.send_message(mto=msg['from'].bare,
 						mbody="%s, the issue lookup failed. Error message: %s" % (msg['mucnick'], e),
