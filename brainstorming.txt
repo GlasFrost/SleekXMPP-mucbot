@@ -1,7 +1,14 @@
 Strings for "randomized" output:
   new member in muc:
-    
+    Hello, role name!
+    Welcome, role name!
+    Hi, role name!
+    How are you doing, role name?
+    What's up, role name?
   nick of bot mentioned:
     I heard that, name!
-    What did you say, name? I didn't pay attention.
+    What did you say, name?
     I'm here, name!
+    Are you talking to me, name?
+    I am listening, name.
+    Don't speak about me like I'm not here, name!

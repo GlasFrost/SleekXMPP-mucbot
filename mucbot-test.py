@@ -11,6 +11,7 @@ import logging
 import getpass
 from optparse import OptionParser
 import sleekxmpp
+import random
 # Python versions before 3.0 do not use UTF-8 encoding
 # by default. To ensure that Unicode is handled properly
 # throughout SleekXMPP, we will set the default encoding
@@ -48,6 +49,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
 		# muc::room@server::got_online, or muc::room@server::got_offline.
 		self.add_event_handler("muc::%s::got_online" % self.room,
 			self.muc_online)
+	
 	def start(self, event):
 		"""
 		Process the session_start event.
@@ -66,6 +68,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
 			# If a room password is needed, use:
 			# password=the_room_password,
 			wait=True)
+	
 	def muc_message(self, msg):
 		"""
 		Process incoming message stanzas from any chat room. Be aware
@@ -84,10 +87,20 @@ class MUCBot(sleekxmpp.ClientXMPP):
 		for stanza objects and the Message stanza to see
 		how it may be used.
 		"""
+		answers = (
+			('I heard that,', '!'),
+			('What did you say,', '?'),
+			('I\'m here,', '!'),
+			('Are you talking to me,', '?'),
+			('I\'m listening,', '!'),
+			('Don\'t speak about me like I\'m not here,', '!')
+			)
+		answer = random.choice(answers)
 		if msg['mucnick'] != self.nick and self.nick in msg['body']:
 			self.send_message(mto=msg['from'].bare,
-				mbody="I heard that, %s." % msg['mucnick'],
+				mbody="%s %s %s" % (answer[0], msg['mucnick'], answer[1]),
 				mtype='groupchat')
+	
 	def muc_online(self, presence):
 		"""
 		Process a presence stanza from a chat room. In this case,
@@ -99,10 +112,18 @@ class MUCBot(sleekxmpp.ClientXMPP):
 		documentation for the Presence stanza
 		to see how else it may be used.
 		"""
+		greetings = (
+			('Hello,', '!'),
+			('Welcome,', '!'),
+			('Hi,', '!'),
+			('How are you doing,', '?'),
+			('What\'s up,', '?')
+			)
+		greeting = random.choice(greetings)
 		if presence['muc']['nick'] != self.nick:
 			self.send_message(mto=presence['from'].bare,
-				mbody="Hello, %s %s" % (presence['muc']['role'],
-				presence['muc']['nick']),
+				mbody="%s %s %s %s" % (greeting[0], presence['muc']['role'],
+				presence['muc']['nick'], greeting[1]),
 				mtype='groupchat')
 
 if __name__ == '__main__':
