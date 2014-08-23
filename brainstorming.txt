@@ -15,3 +15,9 @@ Strings for "randomized" output:
 
   commands for bot:
     !echo <text> - echo the message
+
+Issue lookup reply:
+	(name): Issue #(id): (title)
+	(body)
+	Created at (timestamp) by (user)
+	(html-link)
