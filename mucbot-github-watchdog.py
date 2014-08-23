@@ -104,11 +104,10 @@ class MUCBot(sleekxmpp.ClientXMPP):
 						mtype='groupchat')
 				else:
 					response = json.loads(page.read())
-					#(name): Issue #(id): (title) ((state))
+					#(name): Issue #(id): (url)
+					#((state)) (title)
 					#(body)
-					#Created at (timestamp) by (user)
-					#(html-link)
-					output = "%s: Issue #%s (%s): %s\n%s\nCreated at %s by %s\n%s" % (msg['mucnick'], unicode(response['number']), response['state'], response['title'], response['body'], response['created_at'], response['user']['login'], response['html_url'])
+					output = "%s: Issue #%s: %s\n(%s) %s\n%s" % (msg['mucnick'], unicode(response['number']), response['html_url'], response['state'], response['title'], response['body'])
 					self.send_message(mto=msg['from'].bare,
 						mbody=output,
 						mtype='groupchat')
